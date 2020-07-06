@@ -87,7 +87,7 @@ var OUTPUT_COMPRESSED_PATH = path.join(startingDir, outputFileName+osOutputType)
 console.log('Output compressed folder', OUTPUT_COMPRESSED_PATH);
 var operations = [
 	{'op': 'rename', 'from': OUTPUT_PROJECT_FILES_PATH, 'to': OUTPUT_FOLDER_PATH},
-	{'op': 'compress', 'from': OUTPUT_PROJECT_FILES_PATH, 'to': OUTPUT_COMPRESSED_PATH, 'outputType': osOutputType}
+	// {'op': 'compress', 'from': OUTPUT_PROJECT_FILES_PATH, 'to': OUTPUT_COMPRESSED_PATH, 'outputType': osOutputType}
 ];
 
 async.eachSeries(

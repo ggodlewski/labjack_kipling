@@ -1,0 +1,39 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ node8 ]
+  pull_request:
+    branches: [ node8 ]
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        node-version: [8.9.4]
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    #        platform: [windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      #      - run: npm ci # doesn't work with node8
+      - run: npm install
+      - run: npm run setup
+      - run: npm run build
+
+      - run: ls ./ljswitchboard-builder
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: kipling-${{ matrix.platform }}
+          path: ljswitchboard-builder/kipling*

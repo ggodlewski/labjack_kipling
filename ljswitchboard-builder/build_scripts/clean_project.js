@@ -250,13 +250,14 @@ kipling_parts.forEach(function(kipling_part) {
 	var kiplingPartNMPath = normalizeAndJoin(kiplingPartPath, 'node_modules');
 
 
-	var kiplingPartDeps;
-	try {
-		kiplingPartDeps = fs.readdirSync(kiplingPartNMPath);
-	} catch(err) {
-		console.error('Error reading current directory', kiplingPartNMPath);
-		console.error(err);
-		kiplingPartDeps = [];
+	var kiplingPartDeps = [];
+	if (fs.existsSync(kiplingPartNMPath)) {
+		try {
+			kiplingPartDeps = fs.readdirSync(kiplingPartNMPath);
+		} catch(err) {
+			console.error('Error reading current directory', kiplingPartNMPath);
+			console.error(err);
+		}
 	}
 	// console.log('Kipling Part:', kipling_part);
 	// console.log('Kipling Part Deps:', kiplingPartDeps);
@@ -310,13 +311,14 @@ var createDeleteOperations = function(map, directoryOffset, searchOffset) {
 	// Debugging cleaning a flattened node_module's tree...
 	// console.log('Called...', numTimesCalled);
 	var keys = Object.keys(map);
-	var availableThings;
-	try {
-		availableThings = fs.readdirSync(directoryOffset);
-	} catch(err) {
-		console.error('Error reading current directory', directoryOffset);
-		console.error(err);
-		availableThings = [];
+	var availableThings = [];
+	if (fs.existsSync(directoryOffset)) {
+		try {
+			availableThings = fs.readdirSync(directoryOffset);
+		} catch (err) {
+			console.error('Error reading current directory', directoryOffset);
+			console.error(err);
+		}
 	}
 
 	if(DEBUG_DIRECTORY_SEARCHING) {
