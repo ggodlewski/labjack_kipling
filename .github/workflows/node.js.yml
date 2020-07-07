@@ -31,7 +31,7 @@ jobs:
 #      - run: npm install --global --production windows-build-tools --vs2017
         if: ${{ matrix.platform == 'windows-latest' }}
       - run: npm install
-      - run: npm run setup
+      - run: npm config set msvs_version 2015 && npm run setup
       - run: npm run build
 
       - run: ls ./ljswitchboard-builder
