@@ -29,6 +29,7 @@ jobs:
       #      - run: npm ci # doesn't work with node8
       - run: npm install --global node-gyp@latest
       - run: npm install --global --production windows-build-tools --vs2017
+        if: ${{ matrix.platform == 'windows-latest' }}
       - run: npm install
       - run: npm run setup
       - run: npm run build
