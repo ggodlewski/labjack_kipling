@@ -28,7 +28,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       #      - run: npm ci # doesn't work with node8
       - run: npm install
-      - run: npm run setup
+      - run: npm config set msvs_version 2015 && npm run setup
       - run: npm run build
 
       - run: ls ./ljswitchboard-builder
