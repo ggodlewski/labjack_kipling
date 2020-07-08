@@ -1,0 +1,50 @@
+{
+  "name": "ljswitchboard-core",
+  "version": "0.0.5",
+  "description": "One of the nw applications that gets launched by ljswitchboard",
+  "author": {
+    "name": "Chris Johnson",
+    "url": "https://labjack.com"
+  },
+  "main": "./lib/ljswitchboard-core.js",
+  "ljswitchboard-type": "nwApp",
+  "ljswitchboard-main": "lib/index.html",
+  "homepage": "https://github.com/labjack/labjack_kipling/tree/master/ljswitchboard-core",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/labjack/labjack_kipling.git",
+    "directory": "ljswitchboard-core"
+  },
+  "keywords": [
+    "LabJack",
+    "LJM",
+    "T7",
+    "ljswitchboard"
+  ],
+  "license": "MIT",
+  "bugs": {"url": "https://github.com/labjack/labjack_kipling/issues"},
+  "dependencies": {
+    "async": "1.5.2",
+    "q": "1.5.1"
+  },
+  "devDependencies": {
+    "diff": ">=3.5.0",
+    "nodeunit": "0.11.3"
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "scripts": {
+    "test": "node ./node_modules/nodeunit/bin/nodeunit ./test/test.js"
+  },
+  "window": {
+    "title": "ljswitchboard-core",
+    "icon": "lib/Kipling_128x128.png",
+    "toolbar": true,
+    "width": 1120,
+    "height": 730,
+    "min_width": 600,
+    "min_height": 400,
+    "show": false
+  }
+}

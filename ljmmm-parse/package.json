@@ -1,0 +1,45 @@
+{
+  "name": "ljmmm-parse",
+  "version": "0.2.4",
+  "description": "Library for parsing LabJack Modbus Map Markup documents.",
+  "scripts": {
+    "basicTest": "node ./node_modules/nodeunit/bin/nodeunit ./test/test.js",
+    "test": "npm run basicTest"
+  },
+  "dependencies": {
+    "async": "1.5.2",
+    "sprintf-js": "1.1.2"
+  },
+  "devDependencies": {
+    "diff": ">=3.5.0",
+    "nodeunit": "0.11.3",
+    "rewire": "4.0.1"
+  },
+  "author": {
+    "name": "Sam Pottinger",
+    "url": "http://gleap.org"
+  },
+  "contributors": [
+    {
+      "name": "Chris Johnson",
+      "email": "chris.s.johnson4@gmail.com",
+      "url": "https://github.com/chrisJohn404"
+    }
+  ],
+  "main": "./lib/ljmmm",
+  "license": "MIT",
+  "keywords": [
+    "LabJack",
+    "LJMMM",
+    "MODBUS"
+  ],
+  "homepage": "https://github.com/labjack/labjack_kipling/tree/master/ljmmm-parse",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/labjack/labjack_kipling.git",
+    "directory": "ljmmm-parse"
+  },
+  "files": [
+    "lib"
+  ]
+}
