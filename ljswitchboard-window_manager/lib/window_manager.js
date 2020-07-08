@@ -38,7 +38,7 @@ function createWindowManager() {
 	};
 
 	// this.mainWindow = mainWindow;
-	// this.mainWindowInitialState = 
+	// this.mainWindowInitialState =
 
 	// mainWindow.on('close', function() {
 	// 	var hideWindow = false;
@@ -123,7 +123,7 @@ function createWindowManager() {
 			// Set the window's title from the window's package.json reference.
 			var win = self.managedWindows[windowName].win;
 			var initialVisibility = self.managedWindows[windowName].initialVisibility;
-			
+
 
 			// Configure the window's title
 			win.title = self.managedWindows[windowName].title;
@@ -137,7 +137,7 @@ function createWindowManager() {
 			if(self.managedWindows[windowName].autoShow) {
 				self.showWindow(windowName);
 			}
-			
+
 			// console.log('Finished Loading Window', this.title, 'aka', windowName);
 			self.emit(eventList.LOADED_WINDOW, windowInfo);
 		};
@@ -156,12 +156,12 @@ function createWindowManager() {
 
 			// Manage the other window attributes
 			self.managedWindows[windowName].isVisible = false;
-			
+
 			// If the window is enabled to run in the background, hide it and
 			// prevent it from closing.
 			if(self.managedWindows[windowName].runInBackground) {
 				self.emit(eventList.PREVENTING_WINDOW_FROM_CLOSING, windowInfo);
-				
+
 				// if(self.numOpenWindows() === 1) {
 				// 	console.log('Only one window left');
 				// 	if(!self.options.allowWindowlessApp) {
@@ -212,7 +212,7 @@ function createWindowManager() {
 					} catch(err) {
 						// Error telling emitters that we are quitting.
 					}
-					
+
 					var innerQuitApplication = function() {
 						try {
 							var openWindows = self.getOpenWindows();
@@ -237,13 +237,13 @@ function createWindowManager() {
 						// }
 					}
 					setImmediate(innerQuitApplication);
-					// // TODO: Not sure why but in the basic test which does a 
-					// // crude timeout to check for the window exiting, it 
+					// // TODO: Not sure why but in the basic test which does a
+					// // crude timeout to check for the window exiting, it
 					// // finishes b/c this function gets called to early.  The
 					// // event emitter for QUITTING_APPLICATION works but this one
-					// // doesn't.  Also, it may be a good idea to let the app run 
-					// // for a few ms after the last window closes anyways. 
-					// // self.options.gui.App.quit(); 
+					// // doesn't.  Also, it may be a good idea to let the app run
+					// // for a few ms after the last window closes anyways.
+					// // self.options.gui.App.quit();
 				}
 			}
 		};
@@ -354,7 +354,7 @@ function createWindowManager() {
 	Required fields from appData which is essentially a node-webkit package.json
 	appData.window
 
-	All three of these are objects that get saved by the 
+	All three of these are objects that get saved by the
 	ljswitchboard-package_loader project.
 	*/
 	this.openWindow = function(packageInfo, info, appData) {
@@ -373,7 +373,7 @@ function createWindowManager() {
 		if(DEBUG_WINDOW_MANAGER) {
 			console.log('Reference to gui', Object.keys(gui));
 		}
-		
+
 
 		// Get the module's data that should be used when opening the new window
 		var newWindowData = {};
@@ -406,7 +406,7 @@ function createWindowManager() {
 				}
 			}
 		}
-		
+
 
 		if(asyncOpen) {
 			// Open a new window and save its reference, nw0.13++ uses an async "open" call.
@@ -470,7 +470,7 @@ function createWindowManager() {
 
 			defered.resolve(newWindow);
 		}
-		
+
 
 		// return newWindow;
 		return defered.promise;
@@ -502,7 +502,7 @@ function createWindowManager() {
 							}, function(err) {
 								cb(err);
 							});
-						} 
+						}
 					}
 				}
 				if(!reqOpenWindow) {
@@ -544,7 +544,7 @@ if(DEBUG_WINDOW_EVENT_LIST) {
 }
 exports.linkOutput = function(console) {
 	global.console = console;
-}
+};
 exports.windowManager = WINDOW_MANAGER;
 exports.open = WINDOW_MANAGER.openWindow;
 exports.openManagedApps = WINDOW_MANAGER.openManagedApps;
