@@ -18,4 +18,4 @@ var walk = function(directoryName) {
     });
 };
 
-walk(__dirname);
+walk(process.cwd());
