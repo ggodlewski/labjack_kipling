@@ -279,7 +279,7 @@ var initializeProgram = function() {
 					gui.App.manifest.persistentDataVersion
 				);
 			}
-			
+
 
 			// Save the path to the global scope
 			global.ljswitchboard.appDataPath = persistentDataManager.getPath();
@@ -333,8 +333,8 @@ var loadSecondaryPackages = function() {
 
 		// Instruct the window_manager to open any managed nwApps
 		// window_manager.openManagedApps(packages);
-		
-		
+
+
 		// Execute test function to proove that io_manager can be used.
 		// global.require('../../test.js').runProgram();
 
