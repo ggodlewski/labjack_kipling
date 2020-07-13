@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ node8 ]
+    branches: [ ci ]
   pull_request:
-    branches: [ node8 ]
+    branches: [ ci ]
 
 jobs:
   build:
@@ -44,15 +44,15 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: kipling.3.1.18.${{ steps.date.outputs.date }}_linux64.tar.gz
-          path: ljswitchboard-builder/kipling*
+          path: ljswitchboard-builder/kipling.3.1.18.${{ steps.date.outputs.date }}_linux64.tar.gz
         if: ${{ matrix.platform == 'ubuntu-latest' }}
       - uses: actions/upload-artifact@v2
         with:
           name: kipling.3.1.18.${{ steps.date.outputs.date }}_windows.zip
-          path: ljswitchboard-builder/kipling*
+          path: ljswitchboard-builder/kipling.3.1.18.${{ steps.date.outputs.date }}_win.zip
         if: ${{ matrix.platform == 'windows-latest' }}
       - uses: actions/upload-artifact@v2
         with:
           name: kipling.3.1.18.${{ steps.date.outputs.date }}_macos.zip
-          path: ljswitchboard-builder/kipling*
+          path: ljswitchboard-builder/kipling.3.1.18.${{ steps.date.outputs.date }}_mac.zip
         if: ${{ matrix.platform == 'macos-latest' }}
