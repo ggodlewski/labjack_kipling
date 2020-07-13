@@ -49,10 +49,10 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: kipling.3.1.18.${{ steps.date.outputs.date }}_windows.zip
-          path: ljswitchboard-builder/kipling.3.1.18.${{ steps.date.outputs.date }}_win.zip
+          path: ljswitchboard-builder/kipling.3.1.18.${{ steps.date.outputs.date }}_win64.zip
         if: ${{ matrix.platform == 'windows-latest' }}
       - uses: actions/upload-artifact@v2
         with:
           name: kipling.3.1.18.${{ steps.date.outputs.date }}_macos.zip
-          path: ljswitchboard-builder/kipling.3.1.18.${{ steps.date.outputs.date }}_mac.zip
+          path: ljswitchboard-builder/kipling.3.1.18.${{ steps.date.outputs.date }}_mac64.zip
         if: ${{ matrix.platform == 'macos-latest' }}
