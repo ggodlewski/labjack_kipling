@@ -21,6 +21,8 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
+      - name: Set current date as env variable
+        run: echo "::set-env name=NOW::$(date +'%Y_%m_%d')"
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -40,5 +42,16 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: kipling-${{ matrix.platform }}
+          name: kipling.3.1.18.${{ NOW }}_linux64.tar.gz
           path: ljswitchboard-builder/kipling*
+        if: ${{ matrix.platform == 'ubuntu-latest' }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: kipling.3.1.18.${{ NOW }}_windows.zip
+          path: ljswitchboard-builder/kipling*
+        if: ${{ matrix.platform == 'windows-latest' }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: kipling.3.1.18.${{ NOW }}_macos.zip
+          path: ljswitchboard-builder/kipling*
+        if: ${{ matrix.platform == 'macos-latest' }}
