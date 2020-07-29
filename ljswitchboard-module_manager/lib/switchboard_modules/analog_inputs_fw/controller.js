@@ -8,9 +8,9 @@
  *  1. Read Device Information
  *  2. Periodically Refresh Device Information
  *  3. Accept user input to Configure AINx Channels
- *  
+ *
  * Read Device Information:
- *  1. Read AINx_EF_INDEX register to determine if configuring a channel will 
+ *  1. Read AINx_EF_INDEX register to determine if configuring a channel will
  *     potentially have negative effects elsewhere.
  *  2. Read AINx_RANGE
  *  3. Read AINx_RESOLUTION_INDEX
@@ -38,6 +38,8 @@ var DISABLE_AUTOMATIC_FRAMEWORK_LINKAGE = false;
  * When using the 'singleDevice' framework it is instantiated as sdModule.
  */
 function module() {
+    var ljmmm_parse = global.require('ljmmm-parse');
+
     this.ENABLE_DEBUGGING = false;
     this.moduleConstants = {};
     this.moduleContext = {};
@@ -116,9 +118,9 @@ function module() {
 
     // ef config templates
     var ainEFTypeConfigTemplates = {
-        // 'value': 
-        // 'select': 
-        // 'modbusRegister': 
+        // 'value':
+        // 'select':
+        // 'modbusRegister':
     };
 
     // Templates
@@ -344,7 +346,7 @@ function module() {
         var minRangeText = $(minValIdName).text();
         var maxRangeText = $(maxValIdName).text();
         var tStr;
-        
+
         tStr = (-1 * rangeVal).toString();
         if (minRangeText !== tStr) {
             $(minValIdName).text(tStr);
@@ -353,7 +355,7 @@ function module() {
         if (maxRangeText !== tStr) {
             $(maxValIdName).text(tStr);
         }
-        
+
         switch (rangeVal) {
             case 10:
                 break;
@@ -452,7 +454,7 @@ function module() {
             value = Number(rootEl.getAttribute('value'));
             newText = rootEl.text;
             newTitle = register + ' is set to ' + value.toString();
-           
+
             //Set title
             selectEl.title = newTitle;
             //Set new text
@@ -475,7 +477,7 @@ function module() {
             var isIndex = register.indexOf('_EF_INDEX') > -1;
             var isType = register.indexOf('_EF_TYPE') > -1;
 
-            
+
             var getDeviceCalls = function(efInfo, register, value) {
                 var ioArray = [];
                 var curChannel = findActiveChannel.exec(register);
@@ -695,7 +697,7 @@ function module() {
                 clickBinding.callback = self.genericDropdownClickHandler;
                 smartBindings.push(clickBinding);
             }
-            
+
         };
         bindingList.forEach(addAINInputReg);
 
@@ -827,7 +829,7 @@ function module() {
                 value = Number(rootEl.getAttribute('value'));
                 newText = rootEl.text;
                 newTitle = register + ' is set to ' + value.toString();
-               
+
                 //Set title
                 selectEl.title = newTitle;
                 //Set new text
@@ -858,7 +860,7 @@ function module() {
                 value = Number(rootEl.getAttribute('value'));
                 newText = rootEl.text;
                 newTitle = register + ' is set to ' + value.toString();
-               
+
                 //Set title
                 // selectEl.title = newTitle;
                 //Set new text
@@ -882,11 +884,11 @@ function module() {
 
                 // Un-focus the element
                 rootEl.blur();
-                
+
                 // Code to support writing modbusRegister addresses as values.
                 var ele = $(rootEl);
                 var ljtype = ele.attr('ljtype');
-                if(ljtype) { 
+                if(ljtype) {
                     if(ljtype === 'modbusRegister') {
                         val = rawVal;
                         var regInfo = modbus_map.getAddressInfo(val, 'R');
@@ -898,7 +900,7 @@ function module() {
                         }
                     }
                 }
-                
+
                 writeConfig(reg,val,isValid);
             } else {
                 console.log('Other keypress captured',event.which);
@@ -909,7 +911,7 @@ function module() {
             var toElement = event.toElement;
             var rootEl;
             var valEL;
-            
+
             if(toElement.tagName === 'SPAN') {
                 rootEl = toElement.parentElement;
                 valEl = rootEl.parentElement.children[0];
@@ -942,7 +944,7 @@ function module() {
             // Code to support writing modbusRegister addresses as values.
             var ele = $(rootEl);
             var ljtype = ele.attr('ljtype');
-            if(ljtype) { 
+            if(ljtype) {
                 if(ljtype === 'modbusRegister') {
                     val = rawVal;
                     var regInfo = modbus_map.getAddressInfo(val, 'R');
@@ -1094,7 +1096,7 @@ function module() {
             }
             readBindings.push(newBinding);
         });
-        
+
         // Loop through and add config reg info
         configRegs.forEach(function(configReg) {
             var regName = chName + configReg.configReg;
@@ -1186,7 +1188,7 @@ function module() {
                 if(typeof(configReg.notFoundText) !== 'undefined') {
                     curStr = configReg.notFoundText;
                 }
-                
+
                 menuOptions.forEach(function(menuOption){
                     if(menuOption.value === curVal) {
                         curStr = menuOption.name;
@@ -1238,7 +1240,7 @@ function module() {
             // Add config register to bindings list
             readBindings.push(newBinding);
         });
-        
+
 
         var nameEle = $(baseID + ' .efTypeName');
         var primaryEle = $(baseID + ' .efPrimaryReading');
@@ -1246,7 +1248,7 @@ function module() {
         var helperTextEle = $(efBaseID + ' .efExtendedInfoHelperText');
         var efConfigsEle = $(efBaseID + ' .ainEFConfigs');
         var secondaryReadsEle = $(efBaseID + ' .ainEFSecondaryReadRegisters');
-        
+
         var finishedPages = [];
         var numFinished = 0;
         var pageInfos = [
@@ -1270,7 +1272,7 @@ function module() {
                 KEYBOARD_EVENT_HANDLER.initInputListeners();
             }
         };
-        
+
         pageInfos.forEach(function(pageInfo) {
             if(pageInfo.data !== '') {
                 pageInfo.ele.slideUp(function() {
@@ -1293,7 +1295,7 @@ function module() {
     this.onModuleLoaded = function(framework, onError, onSuccess) {
         self.framework = framework;
         compileTemplates(framework);
-        
+
         // Enable framework-timing debugging
         if(self.ENABLE_DEBUGGING) {
             framework.enableLoopTimingAnalysis();
@@ -1301,7 +1303,7 @@ function module() {
         }
         onSuccess();
     };
-    
+
     this.clearCachedData = function() {
         for (i = 0; i < 13; i++) {
             self.removeAinEFInfo(i);
@@ -1324,7 +1326,7 @@ function module() {
         self.negativeChannelDict = dict();
     };
     /**
-     * Function is called once every time a user selects a new device.  
+     * Function is called once every time a user selects a new device.
      * @param  {[type]} framework   The active framework instance.
      * @param  {[type]} device      The active framework instance.
      * @param  {[type]} onError     Function to be called if an error occurs.
@@ -1332,7 +1334,7 @@ function module() {
     **/
     this.onDeviceSelected = function(framework, device, onError, onSuccess) {
         self.activeDevice = device;
-        
+
         self.clearCachedData();
 
         framework.clearConfigBindings();
@@ -1377,7 +1379,7 @@ function module() {
                     menuOptions = menuGenFunc(index);
                 }
                 options.menuOptions = menuOptions;
-                
+
                 ainChannel.optionsDict.set(compReg,options);
                 if(self.defineDebuggingArrays){
                     ainChannel.options.push(options);
@@ -1423,7 +1425,7 @@ function module() {
                 console.error('in onDeviceConfigured, currentValue is undefined...',name,value);
             } else {
                 var strVal = value.toString();
-                // Switch on 
+                // Switch on
                 var newData;
                 if(!findNum.test(name)) {
                     newData = self.regParser.get(name)(value);
@@ -1445,7 +1447,7 @@ function module() {
                         var menuOptions = ainInfo.optionsDict.get(name);
                         menuOptions.curStr = newData.name;
                         menuOptions.curVal = newData.value;
-                        
+
                         if(name.indexOf('_RANGE') !== -1) {
                             var rangeStr = newData.value.toString();
                             ainInfo.rangeVal = newData.value;
@@ -1463,7 +1465,7 @@ function module() {
                 }
             }
         });
-        
+
         self.moduleContext.analogInputsDict = self.analogInputsDict;
         self.moduleContext.configRegistersDict = configRegistersDict;
         console.log('moduleContext',self.moduleContext);
@@ -1543,7 +1545,7 @@ function module() {
             var svgEle = $(svgID);
             var graphWidth = svgEle.width();
 
-            // Calculate half the width and/or the offset to be used for the 
+            // Calculate half the width and/or the offset to be used for the
             // second graph.
             var halfWidth = graphWidth / 2;
 
@@ -1676,7 +1678,7 @@ function module() {
                 }
             });
             self.newBufferedValues.forEach(function eachNewBuffValue(value,name){
-                // if the new value that is read is not an analog input aka a 
+                // if the new value that is read is not an analog input aka a
                 // channel config option do some special DOM stuff
                 var buttonID;
                 var buttonEl;

@@ -8,9 +8,9 @@
  *  1. Read Device Information
  *  2. Periodically Refresh Device Information
  *  3. Accept user input to Configure AINx Channels
- *  
+ *
  * Read Device Information:
- *  1. Read AINx_EF_TYPE register to determine if configuring a channel will 
+ *  1. Read AINx_EF_TYPE register to determine if configuring a channel will
  *     potentially have negative effects elsewhere.
  *  2. Read AINx_RANGE
  *  3. Read AINx_RESOLUTION_INDEX
@@ -39,6 +39,8 @@ var DISABLE_AUTOMATIC_FRAMEWORK_LINKAGE = false;
  */
 function module() {
     //Define nop (do-nothing) function
+    var ljmmm_parse = global.require('ljmmm-parse');
+
     var nop = function(){};
 
     // Base-Register Variable for Configuring multiple thermocouples.
@@ -86,7 +88,7 @@ function module() {
         var maxRangeText = $(maxValIdName).text();
         var tStr;
         // console.log('binding',binding,'range: ',rangeVal);
-        
+
         tStr = (-1 * rangeVal).toString();
         if (minRangeText !== tStr) {
             $(minValIdName).text(tStr);
@@ -95,7 +97,7 @@ function module() {
         if (maxRangeText !== tStr) {
             $(maxValIdName).text(tStr);
         }
-        
+
         switch (rangeVal) {
             case 10:
                 break;
@@ -148,9 +150,9 @@ function module() {
 
         onSuccess();
     };
-    
+
     /**
-     * Function is called once every time a user selects a new device.  
+     * Function is called once every time a user selects a new device.
      * @param  {[type]} framework   The active framework instance.
      * @param  {[type]} device      The active framework instance.
      * @param  {[type]} onError     Function to be called if an error occurs.
@@ -182,7 +184,7 @@ function module() {
         //by default don't show the efSystemStatusWarning message
         var showEFSystemStatusWarning = false;
 
-        //Loop through results and save them appropriately.  
+        //Loop through results and save them appropriately.
         setupBindings.forEach(function(binding, key){
             // console.log('key',key,'Address',binding.address,', Result: ',binding.result);
             if (key.search('_EF_TYPE') > 0) {
@@ -190,7 +192,7 @@ function module() {
                     // Read was successful, save AINx_EF_TYPE state
                     configuredEFType.push(binding.result);
                 } else {
-                    // Read was not successful, on old devices this means 
+                    // Read was not successful, on old devices this means
                     // AINx_EF_TYPE is un-configured
                     configuredEFType.push(0);
                 }
@@ -216,12 +218,12 @@ function module() {
             } else {
                 console.log(
                     'SetupBinding Read Fail',
-                    binding.address, 
+                    binding.address,
                     binding.result
                 );
             }
         });
-    
+
         var populateMenuArray = function(newArray, origArray) {
             origArray.forEach(function(type){
                 newArray.push({
@@ -326,7 +328,7 @@ function module() {
                 "displayNegativeCh": displayNegativeCh,
                 "negativeCHMenuOptions": negativeCHMenuOptions,
             });
-            
+
         });
 
         var ainRangeMenuOptionsAll = [];
@@ -372,7 +374,7 @@ function module() {
         selectValue(ainSettlingOptions, configuredAllAinSettlingUS);
         selectValue(ainNegativeCHOptions, configuredAllAinNegativeCH);
 
-        
+
         moduleContext.ainRangeMenuOptionsAll = ainRangeMenuOptionsAll;
         moduleContext.ainResolutionMenuOptionsAll = ainResolutionMenuOptionsAll;
         moduleContext.ainSettlingMenuOptionsAll = ainSettlingMenuOptionsAll;
@@ -466,90 +468,90 @@ function module() {
         var moduleBindings = [
             {
                 // Define binding to automatically read AINx Registers.
-                bindingClass: baseReg, 
-                template: baseReg, 
-                binding: baseReg, 
-                direction: 'read', 
-                format: 'customFormat', 
+                bindingClass: baseReg,
+                template: baseReg,
+                binding: baseReg,
+                direction: 'read',
+                format: 'customFormat',
                 customFormatFunc: self.ainResultUpdate
             },
             {
                 // Define binding to automatically read AINx_BINARY Registers.
-                bindingClass: baseReg+'_BINARY', 
-                template: baseReg+'_BINARY',   
-                binding: baseReg+'_BINARY',    
-                direction: 'read',  
+                bindingClass: baseReg+'_BINARY',
+                template: baseReg+'_BINARY',
+                binding: baseReg+'_BINARY',
+                direction: 'read',
                 format: '%d'
             },
             {
                 // Define binding to handle AIN_ALL_RANGE user inputs.
-                bindingClass: 'all-ain-range-select',  
-                template: 'all-ain-range-select', 
-                binding: 'AIN_ALL_RANGE-callback',  
-                direction: 'write', 
+                bindingClass: 'all-ain-range-select',
+                template: 'all-ain-range-select',
+                binding: 'AIN_ALL_RANGE-callback',
+                direction: 'write',
                 event: 'change',
                 writeCallback: configDeviceGlobal
             },
             {
                 // Define binding to handle AIN_ALL_RESOLUTION_INDEX user inputs.
-                bindingClass: 'all-ain-resolution-select',  
-                template: 'all-ain-resolution-select', 
-                binding: 'AIN_ALL_RESOLUTION_INDEX-callback',  
-                direction: 'write', 
+                bindingClass: 'all-ain-resolution-select',
+                template: 'all-ain-resolution-select',
+                binding: 'AIN_ALL_RESOLUTION_INDEX-callback',
+                direction: 'write',
                 event: 'change',
                 writeCallback: configDeviceGlobal
             },
             {
                 // Define binding to handle AIN_ALL_SETTLING_US user inputs.
-                bindingClass: 'all-ain-settling-select',  
-                template: 'all-ain-settling-select', 
-                binding: 'AIN_ALL_SETTLING_US-callback',  
-                direction: 'write', 
+                bindingClass: 'all-ain-settling-select',
+                template: 'all-ain-settling-select',
+                binding: 'AIN_ALL_SETTLING_US-callback',
+                direction: 'write',
                 event: 'change',
                 writeCallback: configDeviceGlobal
             },
             {
                 // Define binding to handle AIN_ALL_NEGATIVE_CH user inputs.
-                bindingClass: 'all-ain-negative-channel-select',  
-                template: 'all-ain-negative-channel-select', 
-                binding: 'AIN_ALL_NEGATIVE_CH-callback',  
-                direction: 'write', 
+                bindingClass: 'all-ain-negative-channel-select',
+                template: 'all-ain-negative-channel-select',
+                binding: 'AIN_ALL_NEGATIVE_CH-callback',
+                direction: 'write',
                 event: 'change',
                 writeCallback: configDeviceGlobal
             },
             {
                 // Define binding to handle AINx_RANGE user inputs.
-                bindingClass: baseReg+'-analog-input-range-select',  
-                template: baseReg+'-analog-input-range-select', 
-                binding: baseReg+'_RANGE-callback',  
-                direction: 'write', 
+                bindingClass: baseReg+'-analog-input-range-select',
+                template: baseReg+'-analog-input-range-select',
+                binding: baseReg+'_RANGE-callback',
+                direction: 'write',
                 event: 'change',
                 writeCallback: configDevice
             },
             {
                 // Define binding to handle AINx_RESOLUTION_INDEX user inputs.
-                bindingClass: baseReg+'-analog-input-resolution-select',  
-                template: baseReg+'-analog-input-resolution-select', 
-                binding: baseReg+'_RESOLUTION_INDEX-callback',  
-                direction: 'write', 
+                bindingClass: baseReg+'-analog-input-resolution-select',
+                template: baseReg+'-analog-input-resolution-select',
+                binding: baseReg+'_RESOLUTION_INDEX-callback',
+                direction: 'write',
                 event: 'change',
                 writeCallback: configDevice
             },
             {
                 // Define binding to handle AINx_SETTLING_US user inputs.
-                bindingClass: baseReg+'-analog-input-settling-select',  
-                template: baseReg+'-analog-input-settling-select', 
-                binding: baseReg+'_SETTLING_US-callback',  
-                direction: 'write', 
+                bindingClass: baseReg+'-analog-input-settling-select',
+                template: baseReg+'-analog-input-settling-select',
+                binding: baseReg+'_SETTLING_US-callback',
+                direction: 'write',
                 event: 'change',
                 writeCallback: configDevice
             },
             {
                 // Define binding to handle AINx_NEGATIVE_CH user inputs.
-                bindingClass: baseReg+'-analog-input-negative-ch-select',  
-                template: baseReg+'-analog-input-negative-ch-select', 
-                binding: baseReg+'_NEGATIVE_CH-callback',  
-                direction: 'write', 
+                bindingClass: baseReg+'-analog-input-negative-ch-select',
+                template: baseReg+'-analog-input-negative-ch-select',
+                binding: baseReg+'_NEGATIVE_CH-callback',
+                direction: 'write',
                 event: 'change',
                 writeCallback: configDevice
             },
@@ -567,10 +569,10 @@ function module() {
             },
             {
                 // Define binding to handle display/hide option-button presses.
-                bindingClass: 'module-options-toggle-button',  
-                template: 'module-options-toggle-button', 
-                binding: 'module-options-callback',  
-                direction: 'write', 
+                bindingClass: 'module-options-toggle-button',
+                template: 'module-options-toggle-button',
+                binding: 'module-options-callback',
+                direction: 'write',
                 event: 'click',
                 writeCallback: function(data, onSuccess) {
                     //Use for reading checkbox:
@@ -583,10 +585,10 @@ function module() {
             },
             {
                 // Define binding to handle display/hide option-button presses.
-                bindingClass: baseReg+'-options-toggle-button',  
-                template: baseReg+'-options-toggle-button', 
-                binding: baseReg+'-callback',  
-                direction: 'write', 
+                bindingClass: baseReg+'-options-toggle-button',
+                template: baseReg+'-options-toggle-button',
+                binding: baseReg+'-callback',
+                direction: 'write',
                 event: 'click',
                 writeCallback: function(data, onSuccess) {
                     optionsButtonHandler(data, onSuccess);
