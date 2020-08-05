@@ -230,8 +230,8 @@ function dataTableDataFormatter() {
             });
         }
     };
-    /** 
-     * Loop through the minifiedConstants and generate the 
+    /**
+     * Loop through the minifiedConstants and generate the
      * cachedRegisterData array by using the registerMatrixDataFormatter.
      * Format into the form specified by datatables:
      * https://datatables.net/examples/data_sources/js_array.html
@@ -251,6 +251,7 @@ function dataTableDataFormatter() {
         modbus_map.minifiedConstants.forEach(function(minifiedConstant) {
             // Check to see if the constant applies to the current device.
             if(checkIfConstantApplies(deviceTypeName, minifiedConstant)) {
+                var ljmmm_parse = global.require('ljmmm-parse');
                 var expandedRegisters = ljmmm_parse.expandPrimaryLJMMMEntrySync(
                     minifiedConstant
                 );
@@ -288,11 +289,11 @@ function dataTableDataFormatter() {
                 //         }
                 //     });
                 //     self.cachedRegisterData.push(attributes);
-                //     
+                //
                 //     // Increment the register index counter.
                 //     registerIndex += 1;
                 // });
-                
+
                 // Adding only the minified registers.
                 var attributes = [];
                 registerMatrixDataFormatter.forEach(function(data) {
