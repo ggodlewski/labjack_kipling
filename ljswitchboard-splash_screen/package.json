@@ -78,7 +78,7 @@
   },
   "enableStartupConfig": false,
   "buildType": "release",
-  "test": true,
+  "test": false,
   "clearCachesOnModuleLoad": true,
   "testPersistentDataFolderName": "K3_DEV",
   "performLiveTests": false,
