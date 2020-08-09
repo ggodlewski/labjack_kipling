@@ -26,7 +26,7 @@ var sprintf = require('sprintf-js').sprintf;
 
 var ljmmm_parse = null;
 try {
-    ljmmm_parse = require('ljmmm-parse');
+    ljmmm_parse = global.require('ljmmm-parse');
     ljmmm_parse.expandLJMMMNameSync = function (name) {
         return ljmmm_parse.expandLJMMMEntrySync(
             {name: name, address: 0, type: 'FLOAT32'}
