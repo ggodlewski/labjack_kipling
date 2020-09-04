@@ -29,8 +29,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ join('v', steps.package-version.outputs.current-version) }}
-          release_name: Release ${{ join('v', steps.package-version.outputs.current-version)
+          tag_name: ${{ format('{0}{1}', 'v', steps.package-version.outputs.current-version) }}
+          release_name: Release ${{ format('{0}{1}', 'v', steps.package-version.outputs.current-version) }}
           draft: false
           prerelease: false
         if: ${{ github.ref == join('refs/tags/v', steps.package-version.outputs.current-version) }}
