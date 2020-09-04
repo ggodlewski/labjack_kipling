@@ -5,8 +5,8 @@ on:
     tags:
       - 'v*'
 jobs:
-  release:
-    name: Publish Package
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,6 +16,10 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
 
+  release:
+    name: Publish Package
+    runs-on: ubuntu-latest
+    steps:
       - run: echo "${{ github.ref }}"
       - run: echo "${{ steps.package-version.outputs.current-version }}"
 
@@ -25,8 +29,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ join('v', steps.package-version.outputs.current-version) }}
+          release_name: Release ${{ join('v', steps.package-version.outputs.current-version)
           draft: false
           prerelease: false
-        if: ${{ github.ref == join('v', steps.package-version.outputs.current-version) }}
+        if: ${{ github.ref == join('refs/tags/v', steps.package-version.outputs.current-version) }}
